@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import sqlite3
 import random
 import time, datetime
