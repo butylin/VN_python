@@ -29,7 +29,7 @@ def getDBConnection():
     # db_connection = DB_CONNECTION
     curr_db_file = currentDBFile()
     #
-    print('Initializing connection to DB..')
+    print('Initializing connection to DB...')
     print('Current DB-file name: ' + curr_db_file)
     #
     if os.path.isfile(curr_db_file):
