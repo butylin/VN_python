@@ -1,3 +1,3 @@
 import time
 
-print(input("Enter smth: "))
+print(input("Enter something: "))
