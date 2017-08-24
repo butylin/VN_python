@@ -33,7 +33,7 @@ def getDBConnection():
     print('Current DB-file name: ' + curr_db_file)
     #
     if os.path.isfile(curr_db_file):
-        print(curr_db_file + ' DB-file exists')
+        print(curr_db_file + ' DB-file exists...')
         if DB_CONNECTION != None:
             print("Connection already established...")
             return DB_CONNECTION
