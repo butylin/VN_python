@@ -1,4 +1,5 @@
-from sensors import VirtualTemperatureSensor, VirtualPressureSensor, VirtualHumiditySensor, VirtualGpsSensor, Adafruit_BME280_temperature
+from sensors import VirtualTemperatureSensor, VirtualPressureSensor, VirtualHumiditySensor, VirtualGpsSensor, \
+                    Adafruit_BME280_temperature, Adafruit_BME280_humidity, Adafruit_BME280_pressure
 
 
 class SensorDataProvidersFactory:
@@ -26,10 +27,10 @@ class SensorDataProvidersFactory:
                 sensor = Adafruit_BME280_temperature.Adafruit_BME280_temperature(name, name, type)
                 return sensor
             if type == 'humidity':
-                sensor = Adafruit_BME280_temperature.Adafruit_BME280_temperature(name, name, type)
+                sensor = Adafruit_BME280_humidity.Adafruit_BME280_humidity(name, name, type)
                 return sensor
             if type == 'pressure':
-                sensor = Adafruit_BME280_temperature.Adafruit_BME280_temperature(name, name, type)
+                sensor = Adafruit_BME280_pressure.Adafruit_BME280_pressure(name, name, type)
                 return sensor
             else:
                 return "Unknown sensor!"
