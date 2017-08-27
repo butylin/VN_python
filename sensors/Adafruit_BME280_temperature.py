@@ -7,7 +7,7 @@ class Adafruit_BME280_temperature(Sensor.Sensor):
     @classmethod
     def get_data(self):
         sensor = BME280(t_mode=BME280_OSAMPLE_8, p_mode=BME280_OSAMPLE_8, h_mode=BME280_OSAMPLE_8)
-        degrees = sensor.read_temperature()
+        degrees = sensor.read_dewpoint()
         return degrees
 
         # pascals = sensor.read_pressure()
