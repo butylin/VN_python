@@ -10,7 +10,7 @@ class Adafruit_BME280_humidity(Sensor.Sensor):
         hum = sensor.read_humidity()
         return hum
 
-
+        #
         # pascals = sensor.read_pressure()
         # hectopascals = pascals / 100
         # humidity = sensor.read_humidity()
