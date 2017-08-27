@@ -6,7 +6,7 @@ from peewee import *
 
 # TODO: choose right .db file depending on the date
 
-db = SqliteDatabase("db\sensor_readings.db")
+db = SqliteDatabase("db/sensor_readings.db")
 
 class SensorData(Model):
     time = DateTimeField()

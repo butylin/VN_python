@@ -1,7 +1,7 @@
 # Provides data model for list of sensor devices, list of output devices and sensor readings
 # Uses Peewee ORM for SQLite access
 from peewee import *
-db = SqliteDatabase("db\devices.db")
+db = SqliteDatabase("db/devices.db")
 
 
 class Sensor(Model):
