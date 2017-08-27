@@ -1,6 +1,7 @@
 from sensors import Sensor
 from Adafruit_BME280 import *
 
+
 class Adafruit_BME280_temperature(Sensor.Sensor):
 
     @classmethod
