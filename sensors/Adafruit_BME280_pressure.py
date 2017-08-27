@@ -6,10 +6,10 @@ class Adafruit_BME280_pressure(Sensor.Sensor):
 
     @classmethod
     def get_data(self):
-        # sensor3 = BME280(t_mode=BME280_OSAMPLE_8, p_mode=BME280_OSAMPLE_8, h_mode=BME280_OSAMPLE_8)
-        # pascals = sensor3.read_pressure()
-        # return (pascals / 100)
-        return BME280.read_pressure()
+        sensor = BME280(t_mode=BME280_OSAMPLE_8, p_mode=BME280_OSAMPLE_8, h_mode=BME280_OSAMPLE_8)
+        pascals = sensor.read_pressure()
+        return (pascals / 100)
+
 
         # pascals = sensor.read_pressure()
         # hectopascals = pascals / 100
