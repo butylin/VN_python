@@ -7,7 +7,7 @@ class Adafruit_BME280_humidity(Sensor.Sensor):
     @classmethod
     def get_data(self):
         sensor = BME280(t_mode=BME280_OSAMPLE_8, p_mode=BME280_OSAMPLE_8, h_mode=BME280_OSAMPLE_8)
-        hum = sensor.read_dewpoint()
+        hum = sensor.read_humidity()
         return hum
 
         # pascals = sensor.read_pressure()
