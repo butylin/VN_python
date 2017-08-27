@@ -37,10 +37,10 @@ def main():
     sensor_data_list = devices_data.get_all_sensors()
 
     for sensor_data in sensor_data_list:
-        # print('Sensor name: {}\n sensor type: {}\n, connection: {}\n ***** '.format(sensor_data.name, sensor_data.type, sensor_data.connection))
+        print('Sensor name: {}\n sensor type: {}\n, connection: {}\n ***** '.format(sensor_data.name, sensor_data.type, sensor_data.connection))
         sensor_provider = SensorDataProvidersFactory.get_data_provider(sensor_data.name, sensor_data.type)
         sensors.append(sensor_provider)
-        # print(sensor_provider)
+        print(sensor_provider)
 
 
 
