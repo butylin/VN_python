@@ -12,9 +12,9 @@ from DBSensorReadingsProvider import SensorReadingsData
 def add_to_db():
     devices_data = DevicesData()
 
-    devices_data.add_sensor('Adafruit_BME280', 'Adafruit_BME280 Temperature Sensor', 'temperature', 'GPIO2, GPIO3, I2C: 0x77')
-    devices_data.add_sensor('Adafruit_BME280', 'Adafruit_BME280 Humidity Sensor', 'humidity', 'GPIO2, GPIO3, I2C: 0x77')
-    devices_data.add_sensor('Adafruit_BME280', 'Adafruit_BME280l Pressure Sensor', 'pressure', 'GPIO2, GPIO3, I2C: 0x77')
+    # devices_data.add_sensor('Adafruit_BME280', 'Adafruit_BME280 Temperature Sensor', 'temperature', 'GPIO2, GPIO3, I2C: 0x77')
+    # devices_data.add_sensor('Adafruit_BME280', 'Adafruit_BME280 Humidity Sensor', 'humidity', 'GPIO2, GPIO3, I2C: 0x77')
+    # devices_data.add_sensor('Adafruit_BME280', 'Adafruit_BME280l Pressure Sensor', 'pressure', 'GPIO2, GPIO3, I2C: 0x77')
     #
     # devices_data.add_output('led', 'LED Green', 'green', '26')
     # devices_data.add_output('led', 'LED Red', 'red', '13')
@@ -25,7 +25,7 @@ def main():
     devices_data = DevicesData()
     sensors_data = SensorReadingsData()
 
-    # devices_data.add_sensor('temp_virt', 'Virtual Temperature Sensor', 'temperature', 'virtual')
+    devices_data.add_sensor('virtual', 'Virtual Temperature Sensor', 'temperature', 'virtual')
     # devices_data.add_sensor('humid_virt', 'Virtual Humidity Sensor', 'humidity', 'virtual')
     # devices_data.add_sensor('gps_virt', 'Virtual GPS Sensor', 'gps', 'virtual')
     #
