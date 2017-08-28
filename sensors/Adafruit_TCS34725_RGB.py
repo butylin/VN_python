@@ -2,6 +2,7 @@ from sensors import Sensor
 import Adafruit_TCS34725
 
 
+# TODO: Override constructor!
 class Adafruit_TCS34725_RGB(Sensor.Sensor):
     # def __init__(self, **kwds):
     #     super(Adafruit_TCS34725_RGB, self).__init__(**kwds)
@@ -12,8 +13,8 @@ class Adafruit_TCS34725_RGB(Sensor.Sensor):
 
     @classmethod
     def get_data(self):
-        tcs = Adafruit_TCS34725.TCS34725()
-        # tcs = Adafruit_TCS34725.TCS34725(address=0x29, busnum=2)
+        # tcs = Adafruit_TCS34725.TCS34725()
+        tcs = Adafruit_TCS34725.TCS34725(address=0x29)
 
         tcs.set_interrupt(False)
         r, g, b, c = tcs.get_raw_data()
