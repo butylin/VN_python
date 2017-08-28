@@ -12,7 +12,8 @@ class Adafruit_TCS34725_RGB(Sensor.Sensor):
 
     @classmethod
     def get_data(self):
-        tcs = Adafruit_TCS34725.TCS34725(address=0x29, busnum=2)
+        tcs = Adafruit_TCS34725.TCS34725()
+        # tcs = Adafruit_TCS34725.TCS34725(address=0x29, busnum=2)
 
         tcs.set_interrupt(False)
         r, g, b, c = tcs.get_raw_data()
