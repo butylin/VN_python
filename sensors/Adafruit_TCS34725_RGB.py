@@ -3,21 +3,27 @@ import Adafruit_TCS34725
 
 
 class Adafruit_TCS34725_RGB(Sensor.Sensor):
-    def __init__(self, **kwds):
-        super(Adafruit_TCS34725_RGB, self).__init__(**kwds)
-        tcs = Adafruit_TCS34725.TCS34725(address=0x29, busnum=2)
-
-    def __del__(self):
-        self.__tcs.disable()
+    # def __init__(self, **kwds):
+    #     super(Adafruit_TCS34725_RGB, self).__init__(**kwds)
+    #     tcs = Adafruit_TCS34725.TCS34725(address=0x29, busnum=2)
+    #
+    # def __del__(self):
+    #     self.__tcs.disable()
 
     @classmethod
     def get_data(self):
+        self.__tcs = Adafruit_TCS34725.TCS34725(address=0x29, busnum=2)
+
         self.__tcs.set_interrupt(False)
         r, g, b, c = self.__tcs.get_raw_data()
         color_temp = Adafruit_TCS34725.calculate_color_temperature(r, g, b)
         lux = Adafruit_TCS34725.calculate_lux(r, g, b)
         self.__tcs.set_interrupt(True)
+
+        self.__tcs.disable()
+
         return lux
+
 
 """
 # Simple demo of reading color data with the TCS34725 sensor.

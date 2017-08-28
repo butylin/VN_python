@@ -40,7 +40,8 @@ def main():
     for sensor_data in sensor_data_list:
         print('Sensor name: {}\nSensor type: {}\nConnection: {}'.format(sensor_data.name, sensor_data.type, sensor_data.connection))
         sensor_provider = SensorDataProvidersFactory.get_data_provider(sensor_data.name, sensor_data.type)
-        sensors.append(sensor_provider)
+        if sensor_provider != None:
+            sensors.append(sensor_provider)
         print(sensor_provider)
         print('********************************')
 
