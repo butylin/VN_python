@@ -25,7 +25,7 @@ def main():
     devices_data = DevicesData()
     sensors_data = SensorReadingsData()
 
-    devices_data.add_sensor('Adafruit_TCS3472', 'Adafruit_TCS3472 Light Sensor', 'light', 'I2C 0x29')
+    devices_data.add_sensor('Adafruit_TCS34725', 'Adafruit_TCS34725 Light Sensor', 'light', 'I2C 0x29')
     # devices_data.add_sensor('virtual', 'Virtual Temperature Sensor', 'temperature', 'virtual')
     # devices_data.add_sensor('humid_virt', 'Virtual Humidity Sensor', 'humidity', 'virtual')
     # devices_data.add_sensor('gps_virt', 'Virtual GPS Sensor', 'gps', 'virtual')

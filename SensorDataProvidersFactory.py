@@ -22,7 +22,7 @@ class SensorDataProvidersFactory:
                 sensor = VirtualGpsSensor.VirtualGpsSensor(name, name, type)
                 return sensor
             else:
-                return "Unknown sensor!"
+                pass
         if name == 'Adafruit_BME280':
             if type == 'temperature':
                 sensor = Adafruit_BME280_temperature.Adafruit_BME280_temperature(name, name, type)
@@ -32,7 +32,7 @@ class SensorDataProvidersFactory:
                 return sensor
             if type == 'pressure':
                 sensor = Adafruit_BME280_pressure.Adafruit_BME280_pressure(name, name, type)
-                return sensor
+                pass
             else:
                 return "Unknown sensor!"
         if name == 'Adafruit_TCS34725':
@@ -40,5 +40,5 @@ class SensorDataProvidersFactory:
                 sensor = Adafruit_TCS34725_RGB.Adafruit_TCS34725_RGB(name, name, type)
                 return sensor
             else:
-                return "Unknown sensor!"
+                pass
 
