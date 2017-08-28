@@ -3,8 +3,8 @@ import Adafruit_TCS34725
 
 
 class Adafruit_TCS34725_RGB(Sensor.Sensor):
-    def __init__(self):
-        super.__init__()
+    def __init__(self, **kwds):
+        super(Adafruit_TCS34725_RGB, self).__init__(**kwds)
         tcs = Adafruit_TCS34725.TCS34725(address=0x29, busnum=2)
 
     def __del__(self):
