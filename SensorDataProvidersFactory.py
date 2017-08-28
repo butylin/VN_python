@@ -1,5 +1,6 @@
 from sensors import VirtualTemperatureSensor, VirtualPressureSensor, VirtualHumiditySensor, VirtualGpsSensor, \
-                    Adafruit_BME280_temperature, Adafruit_BME280_humidity, Adafruit_BME280_pressure
+                    Adafruit_BME280_temperature, Adafruit_BME280_humidity, Adafruit_BME280_pressure, \
+                    Adafruit_TCS34725_RGB
 
 
 class SensorDataProvidersFactory:
@@ -34,3 +35,10 @@ class SensorDataProvidersFactory:
                 return sensor
             else:
                 return "Unknown sensor!"
+        if name == 'Adafruit_TCS34725':
+            if type == 'light':
+                sensor = Adafruit_TCS34725_RGB.Adafruit_TCS34725_RGB(name, name, type)
+                return sensor
+            else:
+                return "Unknown sensor!"
+
