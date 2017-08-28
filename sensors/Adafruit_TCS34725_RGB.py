@@ -12,15 +12,15 @@ class Adafruit_TCS34725_RGB(Sensor.Sensor):
 
     @classmethod
     def get_data(self):
-        self.__tcs = Adafruit_TCS34725.TCS34725(address=0x29, busnum=2)
+        tcs = Adafruit_TCS34725.TCS34725(address=0x29, busnum=2)
 
-        self.__tcs.set_interrupt(False)
-        r, g, b, c = self.__tcs.get_raw_data()
+        tcs.set_interrupt(False)
+        r, g, b, c = tcs.get_raw_data()
         color_temp = Adafruit_TCS34725.calculate_color_temperature(r, g, b)
         lux = Adafruit_TCS34725.calculate_lux(r, g, b)
-        self.__tcs.set_interrupt(True)
+        tcs.set_interrupt(True)
 
-        self.__tcs.disable()
+        tcs.disable()
 
         return lux
 
