@@ -14,7 +14,7 @@ class Adafruit_TCS34725_RGB(Sensor.Sensor):
     @classmethod
     def get_data(self):
         # tcs = Adafruit_TCS34725.TCS34725()
-        tcs = Adafruit_TCS34725.TCS34725(address=0x29)
+        tcs = Adafruit_TCS34725.TCS34725(address=0x29, integration_time=Adafruit_TCS34725.TCS34725_INTEGRATIONTIME_2_4MS)
 
         tcs.set_interrupt(False)
         r, g, b, c = tcs.get_raw_data()
@@ -47,7 +47,7 @@ import smbus
 tcs = Adafruit_TCS34725.TCS34725(address=0x29, busnum=2)
 
 # Or you can change the integration time and/or gain:
-#tcs = Adafruit_TCS34725.TCS34725(integration_time=Adafruit_TCS34725.TCS34725_INTEGRATIONTIME_700MS,
+tcs = Adafruit_TCS34725.TCS34725(integration_time=Adafruit_TCS34725.TCS34725_INTEGRATIONTIME_700MS,
 #                                 gain=Adafruit_TCS34725.TCS34725_GAIN_60X)
 # Possible integration time values:
 #  - TCS34725_INTEGRATIONTIME_2_4MS  (2.4ms, default)
