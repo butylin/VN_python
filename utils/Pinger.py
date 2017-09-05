@@ -26,7 +26,7 @@ class Pinger():
         ping = 0
         # parse string 64 bytes from ya.ru (87.250.250.242): icmp_seq=1 ttl=44 time=151 ms
         for i in range(2, 5):
-             ping += int(re.search('.*time=(.*) ms.*', ping_res[i]).group(1))
+             ping += float(re.search('.*time=(.*) ms.*', ping_res[i]).group(1))
         Pinger.result[site] = ping/4
 
     @staticmethod
