@@ -8,6 +8,8 @@ import re
 class Pinger():
 
     result = {}
+
+    @staticmethod
     def ping(site):
         # sleep_time = random.randint(1, 5)
         # print("Pinging site: {} with sleep {}".format(site, sleep_time))

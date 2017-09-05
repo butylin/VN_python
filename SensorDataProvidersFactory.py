@@ -23,7 +23,7 @@ class SensorDataProvidersFactory:
                 return sensor
             else:
                 pass
-        if name == 'Adafruit_BME280':
+        if name == 'Adafruit_B ME280':
             if type == 'temperature':
                 sensor = Adafruit_BME280_temperature.Adafruit_BME280_temperature(name, name, type)
                 return sensor
