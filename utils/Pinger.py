@@ -22,7 +22,7 @@ class Pinger():
         ping_str = site + " -c 5 -W 1"
         p = subprocess.Popen(["ping", "-c6", "-w100 ", site], stdout = subprocess.PIPE)
         ping_res = str(p.communicate()[0]).split('\\r\\n')
-
+        print("PING RES: ",ping_res)
         ping = 0
         # parse string 64 bytes from ya.ru (87.250.250.242): icmp_seq=1 ttl=44 time=151 ms
         for i in range(1, 6):
