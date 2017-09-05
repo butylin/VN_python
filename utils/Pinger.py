@@ -48,5 +48,5 @@ class Pinger():
 
 
 
-result = Pinger.ping_sites(['ya.ru', 'google.com', 'amazon.com', 'vet.tomsk.ru'])
-print(result)
+# result = Pinger.ping_sites(['ya.ru', 'google.com', 'amazon.com', 'vet.tomsk.ru'])
+# print(result)
