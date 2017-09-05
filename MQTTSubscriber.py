@@ -4,6 +4,7 @@ from DBSLNListProvider import SLNListData
 from time import sleep
 import os
 import subprocess
+from utils import Pinger
 
 MQTT_SERVER = "test.mosquitto.org"
 MQTT_PORT = 1883
@@ -46,9 +47,11 @@ class MQTTSubscriber:
         print("DB-file created: ", file.name)
         return True
 
+    # Delete roaming SLN-db file
     def delete_sln_db(self):
         os.remove(DB_FILE_ROAMING)
         print("DB-file deleted: ", DB_FILE_ROAMING)
+
 
     def main(self, sln_db=None, client=None):
         if client == None:
