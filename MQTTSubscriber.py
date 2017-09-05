@@ -83,14 +83,14 @@ class MQTTSubscriber:
             sln_list = sln_db.get_sln_list()
             print(sln_list)
 
+            # finding fasted SLN
+            sites = []
             for sln in sln_list:
-                print("SLN ID: {}, SLN address: {}, SLN port: {}".format(sln.id, sln.addr, sln. portNum))
-                p = subprocess.Popen(["ping",sln.addr], stdout = subprocess.PIPE)
-                print(p.communicate()[0])
+                sites.append(sln.addr)
 
-        # finding fasted SLN
+            best_sln = Pinger.Pinger.ping_sites(sites)
 
-
+            print(best_sln)
 
         sln_db.close()
         self.delete_sln_db()
