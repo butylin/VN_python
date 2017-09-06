@@ -20,14 +20,14 @@ class Pinger():
         # TODO: check if ping failed
         print("Pinging ", site)
         # ping_str = site + " -c 5 -W 1"
-        p = subprocess.Popen(["ping", "-c4", "-w100 ", site], stdout = subprocess.PIPE)
-        ping_res = list((str(p.communicate()[0])).split('\n')) #linux format
-        # ping_res = list((str(p.communicate()[0])).split('\\r\\n')) #windows format
+        p = subprocess.Popen(["ping", "-c4", "-w1 ", site], stdout = subprocess.PIPE)
+        # ping_res = list((str(p.communicate()[0])).split('\n')) #linux format
+        ping_res = list((str(p.communicate()[0])).split('\\r\\n')) #windows format
         ping = 0
 
         for i in range(2, 5):
-            ping += float(re.search('.*time=(.*) ms.*', ping_res[i]).group(1)) # parse linux ping string: 64 bytes from ya.ru (87.250.250.242): icmp_seq=1 ttl=44 time=151 ms
-            # ping += float(re.search('.*time=(.*)ms TTL=.*', ping_res[i]).group(1)) # parse windows ping string: Reply from 87.250.250.242: bytes=32 time=154ms TTL=44
+            # ping += float(re.search('.*time=(.*) ms.*', ping_res[i]).group(1)) # parse linux ping string: 64 bytes from ya.ru (87.250.250.242): icmp_seq=1 ttl=44 time=151 ms
+            ping += float(re.search('.*time=(.*)ms TTL=.*', ping_res[i]).group(1)) # parse windows ping string: Reply from 87.250.250.242: bytes=32 time=154ms TTL=44
         Pinger.result[site] = ping/4
 
     @staticmethod
