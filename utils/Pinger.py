@@ -27,6 +27,7 @@ class Pinger():
 
         for i in range(2, 5):
             # ping += float(re.search('.*time=(.*) ms.*', ping_res[i]).group(1)) # parse linux ping string: 64 bytes from ya.ru (87.250.250.242): icmp_seq=1 ttl=44 time=151 ms
+            print(ping_res[i])
             ping += float(re.search('.*time=(.*)ms TTL=.*', ping_res[i]).group(1)) # parse windows ping string: Reply from 87.250.250.242: bytes=32 time=154ms TTL=44
         Pinger.result[site] = ping/4
 
