@@ -70,7 +70,7 @@ class MQTTHandshakeHandler:
         print("Waiting for list of SLNs from Roaming Node", MQTT_TOPIC)
 
 
-        timer = 5
+        timer = 10
         #wait for MQTT message
         while (not self.FLAG_DB_CREATED) and (timer > 0):
             print(timer)
@@ -85,9 +85,11 @@ class MQTTHandshakeHandler:
             sln_list = sln_db.get_sln_list()
             print(sln_list)
 
+
             # finding fasted SLN
             sites = []
             for sln in sln_list:
+                print(sln.addr)
                 sites.append(sln.addr)
 
             best_sln = Pinger.Pinger.ping_sites(sites)
