@@ -59,8 +59,8 @@ def main():
         leds['green'].on()
         for sensor in sensors:
             print("{}({}): {}".format(sensor.name, sensor.type, sensor.get_data()))
-            print('******************')
-            time.sleep(1);
+        print('******************')
+        time.sleep(1);
         leds['green'].off()
 
 
