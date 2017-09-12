@@ -21,7 +21,7 @@ def add_to_db():
     devices_data.add_output('led', 'LED Red', 'red', '13')
     devices_data.add_output('console', 'Console Output', 'console', '')
 
-    # devices_data.add_sensor('virtual', 'Virtual Temperature Sensor', 'temperature', 'virtual')
+    # devices_datacalc.add_sensor('virtual', 'Virtual Temperature Sensor', 'temperature', 'virtual')
     # devices_data.add_sensor('humid_virt', 'Virtual Humidity Sensor', 'humidity', 'virtual')
     # devices_data.add_sensor('gps_virt', 'Virtual GPS Sensor', 'gps', 'virtual')
 
@@ -33,7 +33,15 @@ def main():
     sensors_data = SensorReadingsData()
 
     sensors = []
+    leds = {}
     sensor_data_list = devices_data.get_all_sensors()
+    output_list = devices_data.get_all_outputs()
+
+    for output in output_list:
+        print('Out name: {} out type: {} out connection: {}'.format(output.name, output.type, output.connection))
+        if output.name == 'led':
+            leds[output.type] = SensorDataProvidersFactory.get_data_provider(output.name, output.type, output.connection)
+
 
     for sensor_data in sensor_data_list:
         print('Sensor name: {}\nSensor type: {}\nConnection: {}\nActive: {}'.format(sensor_data.name, sensor_data.type, sensor_data.connection, sensor_data.active))
@@ -48,10 +56,12 @@ def main():
         print('********************************')
 
     while True:
-            for sensor in sensors:
-                print("{}({}): {}".format(sensor.name, sensor.type, sensor.get_data()))
+        leds['green'].on()
+        for sensor in sensors:
+            print("{}({}): {}".format(sensor.name, sensor.type, sensor.get_data()))
             print('******************')
             time.sleep(1);
+        leds['green'].off()
 
 
 # add_to_db()

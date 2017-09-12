@@ -1,12 +1,12 @@
 from sensors import VirtualTemperatureSensor, VirtualPressureSensor, VirtualHumiditySensor, VirtualGpsSensor, \
                     Adafruit_BME280_temperature, Adafruit_BME280_humidity, Adafruit_BME280_pressure, \
-                    Adafruit_TCS34725_RGB
+                    Adafruit_TCS34725_RGB, LED_light
 
 
 class SensorDataProvidersFactory:
 
     @staticmethod
-    def get_data_provider(name, type):
+    def get_data_provider(name, type, connection=None):
         # VIRTUAL SENSOR data retrivial
         if name == 'virtual':
             if type == 'temperature':
@@ -41,4 +41,10 @@ class SensorDataProvidersFactory:
                 return sensor
             else:
                 pass
+        # OUTPUTS
+        if name == 'led':
+            output = LED_light.LED_light(name, name, type, connection)
+            return output
+        else:
+            pass
 
