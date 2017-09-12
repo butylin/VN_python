@@ -61,10 +61,9 @@ def main():
         leds['green'].on()
         for sensor in sensors:
             print("{}({}): {}".format(sensor.name, sensor.type, sensor.get_data()))
+        leds['green'].off()
         print('******************')
         time.sleep(1);
-        leds['green'].off()
-
 
 # add_to_db()
 main()
