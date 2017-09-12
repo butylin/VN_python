@@ -40,7 +40,9 @@ def main():
     for output in output_list:
         print('Output name: {} Type: {} Connection: {}'.format(output.name, output.type, output.connection))
         if output.name == 'led':
-            leds[output.type] = SensorDataProvidersFactory.get_data_provider(output.name, output.type, output.connection)
+            out_provider = SensorDataProvidersFactory.get_data_provider(output.name, output.type, output.connection)
+            leds[output.type] = out_provider
+            print("Sensor provider: ", out_provider)
 
 
     for sensor_data in sensor_data_list:
