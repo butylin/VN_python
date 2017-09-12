@@ -12,7 +12,7 @@ class LED_light(Output.Output):
         self.connection = connection
 
     def on(self):
-        led = LED(self.connection)
+        led = LED(int(self.connection))
         led.on()
 
     def off(self):

@@ -38,7 +38,7 @@ def main():
     output_list = devices_data.get_all_outputs()
 
     for output in output_list:
-        print('Out name: {} out type: {} out connection: {}'.format(output.name, output.type, output.connection))
+        print('Output name: {} Type: {} Connection: {}'.format(output.name, output.type, output.connection))
         if output.name == 'led':
             leds[output.type] = SensorDataProvidersFactory.get_data_provider(output.name, output.type, output.connection)
 
