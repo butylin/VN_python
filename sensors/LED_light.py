@@ -14,11 +14,11 @@ class LED_light(Output.Output):
 
     def on(self):
         self.led.on()
-        print("ON for ",self.led)
+        # print("ON for ",self.led)
 
     def off(self):
         self.led.off()
-        print("OFF for ",self.led)
+        # print("OFF for ",self.led)
 
     def show_data(self):
         pass

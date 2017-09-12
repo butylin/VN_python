@@ -59,8 +59,10 @@ def main():
 
     while True:
         leds['green'].on()
+        leds['red'].on()
         for sensor in sensors:
             print("{}({}): {}".format(sensor.name, sensor.type, sensor.get_data()))
+        leds['red'].off()
         leds['green'].off()
         print('******************')
         time.sleep(1);
