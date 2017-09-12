@@ -9,6 +9,7 @@ class Sensor(Model):
     full_name = CharField()
     type = CharField()
     connection = CharField()
+    active = BooleanField()
 
     class Meta:
         database = db
@@ -19,6 +20,7 @@ class Output(Model):
     full_name = CharField()
     type = CharField()
     connection = CharField()
+    active = BooleanField()
 
     class Meta:
         database = db
@@ -31,12 +33,12 @@ class DevicesData(object):
         db.create_tables([Sensor, Output], safe=True)
         # print("table created" + Sensor + " " + Output )
 
-    def add_sensor(self, name, fullName, type, connection):
-        Sensor.get_or_create(name=name, full_name=fullName, type=type, connection=connection)
+    def add_sensor(self, name, fullName, type, connection, active=True):
+        Sensor.get_or_create(name=name, full_name=fullName, type=type, connection=connection, active=active)
         print("row added {} : {} : {} : {}".format(name, fullName, type, connection))
 
-    def add_output(self, name, fullName, type, connection):
-        Output.get_or_create(name=name, full_name=fullName, type=type, connection=connection)
+    def add_output(self, name, fullName, type, connection, active=True):
+        Output.get_or_create(name=name, full_name=fullName, type=type, connection=connection, active=active)
         print("row added {} : {} : {} : {}".format(name, fullName, type, connection))
 
     def get_all_sensors(self):

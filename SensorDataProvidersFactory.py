@@ -23,7 +23,7 @@ class SensorDataProvidersFactory:
                 return sensor
             else:
                 pass
-        if name == 'Adafruit_B ME280':
+        if name == 'Adafruit_BME280':
             if type == 'temperature':
                 sensor = Adafruit_BME280_temperature.Adafruit_BME280_temperature(name, name, type)
                 return sensor
@@ -32,7 +32,7 @@ class SensorDataProvidersFactory:
                 return sensor
             if type == 'pressure':
                 sensor = Adafruit_BME280_pressure.Adafruit_BME280_pressure(name, name, type)
-                pass
+                return sensor
             else:
                 return "Unknown sensor!"
         if name == 'Adafruit_TCS34725':

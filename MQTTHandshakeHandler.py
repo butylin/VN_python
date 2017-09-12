@@ -5,6 +5,7 @@ from time import sleep
 import os
 import subprocess
 from utils import Pinger
+from utils import MQTTPinger
 
 MQTT_ROAMING_SERVER = "test.mosquitto.org"
 MQTT_PORT = 1883
@@ -29,7 +30,6 @@ class MQTTHandshakeHandler:
     def on_message(self, client, userdata, msg):
         print("Recieved message from {}\nMessage content: {}".format(msg.topic, str(msg.payload)))
         if(self.make_db_file(msg.payload)):
-            # global FLAG_DB_CREATED
             self.FLAG_DB_CREATED = True
 
     # creates DB-file from MQTT message bytes
@@ -55,7 +55,7 @@ class MQTTHandshakeHandler:
         self.FLAG_DB_CREATED = False
         print("DB-file deleted: ", DB_FILE_ROAMING)
 
-    def main(self, sln_db=None, client=None):
+    def do_handshake(self, conf, sln_db=None, client=None):
         if client is None:
             client = mqtt.Client()
         if sln_db is None:
@@ -63,22 +63,24 @@ class MQTTHandshakeHandler:
 
         client.on_connect = self.on_connect
         client.on_message = self.on_message
-        client.connect_async(MQTT_ROAMING_SERVER, MQTT_PORT, MQTT_ALIVE)
-        client.loop_start()
-
+        try:
+            client.connect_async(MQTT_ROAMING_SERVER, MQTT_PORT, MQTT_ALIVE)
+            client.loop_start()
+        except Exception as e:
+            print("Unable to connect to roaming server {} -- {}".format(MQTT_ROAMING_SERVER, e))
+            return -1
 
         print("Waiting for list of SLNs from Roaming Node", MQTT_TOPIC)
 
-
         timer = 10
-        #wait for MQTT message
+        #wait for MQTT message for 'timer' seconds
         while (not self.FLAG_DB_CREATED) and (timer > 0):
             print(timer)
             timer -= 1
             sleep(1)
 
         if not self.FLAG_DB_CREATED:
-            print("No SLN db was not created. Trying connection again")
+            print("Haven't received SLN-list from roaming server. Trying connection again")
             # sln_db.close()
             self.main(sln_db, client)
         else:
@@ -87,12 +89,18 @@ class MQTTHandshakeHandler:
 
 
             # finding fasted SLN
-            sites = []
-            for sln in sln_list:
-                print(sln.addr)
-                sites.append(sln.addr)
+            if not len(sln_list) == 0:
+                sites = []
+                for sln in sln_list:
+                    print(sln.addr)
+                    sites.append(sln.addr)
+            else:
+                print("No online SLNs in the area")
+                return -1
 
-            best_sln = Pinger.Pinger.ping_sites(sites)
+            # best_sln = Pinger.Pinger.ping_sites(sites)
+            pinger = MQTTPinger.MQTTPinger()
+            best_sln = pinger.get_fastest(sites)
 
             print("Best server: ", best_sln)
 
@@ -100,8 +108,5 @@ class MQTTHandshakeHandler:
             sln_db.close()
             self.delete_sln_db()
 
-
-
-
-sub = MQTTHandshakeHandler()
-sub.main()
+# sub = MQTTHandshakeHandler()
+# sub.do_handshake()

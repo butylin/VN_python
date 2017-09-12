@@ -8,8 +8,8 @@ import threading
 
 class MQTTPinger():
 
-    def __init__(self, broker_list, config=None):
-        self.broker_list = broker_list
+    def __init__(self, config=None):
+        # self.broker_list = broker_list
         self.config = config
         self.result = {}
         self.VIN = '77'
@@ -21,7 +21,7 @@ class MQTTPinger():
         start_time = self.result[userdata]
         end_time = datetime.datetime.now().microsecond
         time_diff = end_time - start_time
-        # print("Server {} timediff {} start {} end {}: ".format(userdata, time_diff, start_time, end_time))
+        print("Server: {} Diff: {} Start: {} End: {} ".format(userdata, time_diff, start_time, end_time))
         self.result[userdata] = time_diff
         client.disconnect()
 
@@ -38,11 +38,11 @@ class MQTTPinger():
             self.result[broker] = -1
 
     # iterates through brokers-list and calls 'ping_broker()' for every broker-address in sparate thread
-    def ping_brokers(self):
+    def ping_brokers(self, broker_list):
         threads = []
-        for broker in self.broker_list:
+        for broker in broker_list:
             pingThread = threading.Thread(target=self.ping_broker, args=(broker, self.ping_topic))
-            print("Starting thread: ", pingThread)
+            print("Pinging: ", broker)
             pingThread.start()
             # storing all started threads
             threads.append(pingThread)
@@ -53,7 +53,13 @@ class MQTTPinger():
 
         return self.result
 
+    def get_fastest(self, broker_list):
+        latencys = self.ping_brokers(broker_list)
+        print(latencys)
+        fastest = min(latencys, key=latencys.get)
+        return fastest, latencys[fastest]
 
-# list = ['test.mosquitto.org', 'butylin-aws.ddns.net', '74.208.85.11', 'bumbum.com']
-# pinger = MQTTPinger(list)
-# print(pinger.ping_brokers())
+
+# list = ['test.mosquitto.org', 'butylin-aws.ddns.net', '74.208.85.110']
+        # pinger = MQTTPinger()
+        # print(pinger.ping_brokers(list))
