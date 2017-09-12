@@ -10,13 +10,15 @@ class LED_light(Output.Output):
         self.full_name = full_name
         self.type = type
         self.connection = connection
+        self.led = LED(int(self.connection))
 
     def on(self):
-        led = LED(int(self.connection))
-        led.on()
+        self.led.on()
+        print("ON for ",self.led)
 
     def off(self):
-        pass
+        self.led.off()
+        print("OFF for ",self.led)
 
     def show_data(self):
         pass
