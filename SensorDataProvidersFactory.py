@@ -1,6 +1,7 @@
+from outputs import LED_light
 from sensors import VirtualTemperatureSensor, VirtualPressureSensor, VirtualHumiditySensor, VirtualGpsSensor, \
                     Adafruit_BME280_temperature, Adafruit_BME280_humidity, Adafruit_BME280_pressure, \
-                    Adafruit_TCS34725_RGB, LED_light
+                    Adafruit_TCS34725_RGB
 
 
 class SensorDataProvidersFactory:

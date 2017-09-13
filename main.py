@@ -3,6 +3,7 @@ import time, datetime
 from SensorDataProvidersFactory import *
 from DBDevicesProvider import DevicesData
 from DBSensorReadingsProvider import SensorReadingsData
+from MQTTHandshakeHandler import MQTTHandshakeHandler
 
 # sensorData = SensorReadingsData()
 #
@@ -27,13 +28,18 @@ def add_to_db():
 
     devices_data.close()
 
+    connected_to_SLN = False
+    SLN_current = None
 def main():
-
     devices_data = DevicesData()
     sensors_data = SensorReadingsData()
 
     sensors = []
+    outputs = {}
     leds = {}
+
+    SLN_current = MQTTHandshakeHandler.do_handshake()
+
     sensor_data_list = devices_data.get_all_sensors()
     output_list = devices_data.get_all_outputs()
 
@@ -42,8 +48,11 @@ def main():
         if output.name == 'led':
             out_provider = SensorDataProvidersFactory.get_data_provider(output.name, output.type, output.connection)
             leds[output.type] = out_provider
+            outputs['leds'] = leds
             print("Sensor provider: ", out_provider)
-
+        else:
+            out_provider = SensorDataProvidersFactory.get_data_provider(output.name, output.type, output.connection)
+            outputs[output.name] = out_provider
 
     for sensor_data in sensor_data_list:
         print('Sensor name: {}\nSensor type: {}\nConnection: {}\nActive: {}'.format(sensor_data.name, sensor_data.type, sensor_data.connection, sensor_data.active))

@@ -11,7 +11,7 @@ MQTT_ROAMING_SERVER = "test.mosquitto.org"
 MQTT_PORT = 1883
 MQTT_ALIVE = 60
 MQTT_VID = '77'
-MQTT_TOPIC = "/control/roaming/" + MQTT_VID
+MQTT_TOPIC = "/control/roaming"
 DB_FILE_ROAMING = "db/roaming.db"
 # FLAG_DB_CREATED = False
 CONNECTION_TIMEOUT = 10
@@ -20,16 +20,17 @@ class MQTTHandshakeHandler:
     FLAG_DB_CREATED = False
     # The callback for when the client receives a CONNACK response from the server.
     def on_connect(self, client, userdata, flags, rc):
-        print("Connected with result code "+str(rc))
+        print("Connected to Roaming MQTT broker. Code: "+str(rc))
 
         # Subscribing in on_connect() means that if we lose the connection and
         # reconnect then subscriptions will be renewed.
-        client.subscribe(MQTT_TOPIC)
+        client.subscribe(MQTT_TOPIC + "/" + MQTT_VID)
+        print("Subscribing")
 
     # The callback for when a PUBLISH message is received from the server.
     def on_message(self, client, userdata, msg):
         print("Recieved message from {}\nMessage content: {}".format(msg.topic, str(msg.payload)))
-        if(self.make_db_file(msg.payload)):
+        if self.make_db_file(msg.payload):
             self.FLAG_DB_CREATED = True
 
     # creates DB-file from MQTT message bytes
@@ -70,6 +71,9 @@ class MQTTHandshakeHandler:
             print("Unable to connect to roaming server {} -- {}".format(MQTT_ROAMING_SERVER, e))
             return -1
 
+        # sending Vehicle ID to a roaming server and waiting for a response with SLN-list (listening for a roaming topic)
+        client.publish(MQTT_TOPIC, MQTT_VID)
+
         print("Waiting for list of SLNs from Roaming Node", MQTT_TOPIC)
 
         timer = 10
@@ -100,6 +104,7 @@ class MQTTHandshakeHandler:
 
             # best_sln = Pinger.Pinger.ping_sites(sites)
             pinger = MQTTPinger.MQTTPinger()
+
             best_sln = pinger.get_fastest(sites)
 
             print("Best server: ", best_sln)
@@ -107,6 +112,8 @@ class MQTTHandshakeHandler:
         if self.FLAG_DB_CREATED:
             sln_db.close()
             self.delete_sln_db()
+
+        return best_sln
 
 # sub = MQTTHandshakeHandler()
 # sub.do_handshake()

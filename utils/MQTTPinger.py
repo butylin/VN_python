@@ -35,7 +35,7 @@ class MQTTPinger():
             mqtt_client.loop_forever()
         except Exception as e:
             print("Error connecting to {} -- {}".format(broker, e))
-            self.result[broker] = -1
+            self.result[broker] = 'unknown'
 
     # iterates through brokers-list and calls 'ping_broker()' for every broker-address in sparate thread
     def ping_brokers(self, broker_list):
@@ -53,6 +53,7 @@ class MQTTPinger():
 
         return self.result
 
+    #returns server with lowest connect_time as tuple (server, connect_time)
     def get_fastest(self, broker_list):
         latencys = self.ping_brokers(broker_list)
         print(latencys)

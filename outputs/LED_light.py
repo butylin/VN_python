@@ -1,7 +1,7 @@
-from sensors import Output
-import SensorDataProvidersFactory
-import DBSensorReadingsProvider
 from gpiozero import LED
+
+from outputs import Output
+
 
 class LED_light(Output.Output):
 
