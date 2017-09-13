@@ -26,6 +26,8 @@ class MQTTHandshakeHandler:
         # reconnect then subscriptions will be renewed.
         client.subscribe(MQTT_TOPIC + "/" + MQTT_VID)
         print("Subscribing")
+        client.publish(MQTT_TOPIC, MQTT_VID)
+        print('Publishing to: {} msg: {}'.format(MQTT_TOPIC, MQTT_VID))
 
     # The callback for when a PUBLISH message is received from the server.
     def on_message(self, client, userdata, msg):
@@ -56,23 +58,25 @@ class MQTTHandshakeHandler:
         self.FLAG_DB_CREATED = False
         print("DB-file deleted: ", DB_FILE_ROAMING)
 
-    def do_handshake(self, conf, sln_db=None, client=None):
+    def do_handshake(self, conf=None, sln_db=None, client=None):
         if client is None:
             client = mqtt.Client()
+            client.on_connect = self.on_connect
+            client.on_message = self.on_message
+            try:
+                client.connect_async(MQTT_ROAMING_SERVER, MQTT_PORT, MQTT_ALIVE)
+                client.loop_start()
+            except Exception as e:
+                print("Unable to connect to roaming server {} -- {}".format(MQTT_ROAMING_SERVER, e))
+                return -1
         if sln_db is None:
             sln_db = SLNListData()
 
-        client.on_connect = self.on_connect
-        client.on_message = self.on_message
-        try:
-            client.connect_async(MQTT_ROAMING_SERVER, MQTT_PORT, MQTT_ALIVE)
-            client.loop_start()
-        except Exception as e:
-            print("Unable to connect to roaming server {} -- {}".format(MQTT_ROAMING_SERVER, e))
-            return -1
+
 
         # sending Vehicle ID to a roaming server and waiting for a response with SLN-list (listening for a roaming topic)
-        client.publish(MQTT_TOPIC, MQTT_VID)
+        # client.publish(MQTT_TOPIC, MQTT_VID)
+        # print('Publishing to: {} msg: {}'.format(MQTT_TOPIC, MQTT_VID))
 
         print("Waiting for list of SLNs from Roaming Node", MQTT_TOPIC)
 
@@ -86,7 +90,7 @@ class MQTTHandshakeHandler:
         if not self.FLAG_DB_CREATED:
             print("Haven't received SLN-list from roaming server. Trying connection again")
             # sln_db.close()
-            self.main(sln_db, client)
+            self.do_handshake(sln_db, client)
         else:
             sln_list = sln_db.get_sln_list()
             print(sln_list)
