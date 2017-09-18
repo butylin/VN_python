@@ -100,8 +100,8 @@ class MQTTHandshakeHandler:
         else:
             sln_list = sln_db.get_sln_list()
 
-            sln_db.close()
-            self.delete_sln_db()
+            # sln_db.close()
+            # self.delete_sln_db()
 
             # finding fasted SLN
             if not len(sln_list) == 0:
