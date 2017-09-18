@@ -16,6 +16,10 @@ DB_FILE_ROAMING = "db/roaming.db"
 # FLAG_DB_CREATED = False
 CONNECTION_TIMEOUT = 10
 
+# returns 0 if failed to connect to Roaming Server
+# returns 1 if doesn't receive reply from Roaming Server within CONNECTION_TIMEOUT
+# returns 2 if SLN-list returned from Roaming Server is empty
+
 class MQTTHandshakeHandler:
     FLAG_DB_CREATED = False
     # The callback for when the client receives a CONNACK response from the server.
@@ -64,23 +68,24 @@ class MQTTHandshakeHandler:
             client.on_connect = self.on_connect
             client.on_message = self.on_message
             try:
+                #connects to a Roaming Nodef
                 client.connect_async(MQTT_ROAMING_SERVER, MQTT_PORT, MQTT_ALIVE)
                 client.loop_start()
             except Exception as e:
+                # problem connecting with roaming node. returning '0'
                 print("Unable to connect to roaming server {} -- {}".format(MQTT_ROAMING_SERVER, e))
-                return -1
+                return 0
         if sln_db is None:
             sln_db = SLNListData()
 
-
-
         # sending Vehicle ID to a roaming server and waiting for a response with SLN-list (listening for a roaming topic)
-        # client.publish(MQTT_TOPIC, MQTT_VID)
-        # print('Publishing to: {} msg: {}'.format(MQTT_TOPIC, MQTT_VID))
+        client.publish(MQTT_TOPIC, MQTT_VID)
+        print('Publishing to: {} msg: {}'.format(MQTT_TOPIC, MQTT_VID))
 
         print("Waiting for list of SLNs from Roaming Node", MQTT_TOPIC)
 
-        timer = 10
+        #time to wait berfore get the result from roaming node
+        timer = CONNECTION_TIMEOUT
         #wait for MQTT message for 'timer' seconds
         while (not self.FLAG_DB_CREATED) and (timer > 0):
             print(timer)
@@ -88,30 +93,33 @@ class MQTTHandshakeHandler:
             sleep(1)
 
         if not self.FLAG_DB_CREATED:
-            print("Haven't received SLN-list from roaming server. Trying connection again")
+            print("Haven't received SLN-list from roaming server.")
+            return 1
             # sln_db.close()
-            self.do_handshake(sln_db, client)
+            # self.do_handshake(sln_db, client)
         else:
             sln_list = sln_db.get_sln_list()
-            print(sln_list)
-
 
             # finding fasted SLN
             if not len(sln_list) == 0:
+                print("List of online SLNs: ")
                 sites = []
                 for sln in sln_list:
                     print(sln.addr)
                     sites.append(sln.addr)
             else:
                 print("No online SLNs in the area")
-                return -1
+                return 2
 
             # best_sln = Pinger.Pinger.ping_sites(sites)
             pinger = MQTTPinger.MQTTPinger()
 
             best_sln = pinger.get_fastest(sites)
 
-            print("Best server: ", best_sln)
+            if(not best_sln == 0):
+                print("Best server: ", best_sln)
+            else:
+                print("No accessible SLNs discovered!")
 
         if self.FLAG_DB_CREATED:
             sln_db.close()

@@ -30,12 +30,13 @@ class MQTTPinger():
         mqtt_client = mqtt.Client(userdata=broker)
         mqtt_client.on_connect = self.on_connect
         self.result[broker] = datetime.datetime.now().microsecond
+
         try:
             mqtt_client.connect(broker, 1883, 5)
             mqtt_client.loop_forever()
         except Exception as e:
             print("Error connecting to {} -- {}".format(broker, e))
-            self.result[broker] = 'unknown'
+            # self.result[broker] = 'unknown'
 
     # iterates through brokers-list and calls 'ping_broker()' for every broker-address in sparate thread
     def ping_brokers(self, broker_list):
@@ -51,14 +52,18 @@ class MQTTPinger():
             # waiting for all started threads to end
             t.join()
 
+        # after all threads are finished returns class attribute 'result' which was used by threads
         return self.result
 
     #returns server with lowest connect_time as tuple (server, connect_time)
     def get_fastest(self, broker_list):
         latencys = self.ping_brokers(broker_list)
-        print(latencys)
-        fastest = min(latencys, key=latencys.get)
-        return fastest, latencys[fastest]
+        if(not len(latencys == 0)):
+            print(latencys)
+            fastest = min(latencys, key=latencys.get)
+            return fastest, latencys[fastest]
+        else:
+            return 0
 
 
 # list = ['test.mosquitto.org', 'butylin-aws.ddns.net', '74.208.85.110']
