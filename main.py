@@ -24,12 +24,11 @@ class Main():
         outputs = {}
         leds = {}
 
-        SLN_current = hadshake_handler.do_handshake()
-
-
+        # getting list of records for sensors and output devices from DB
         sensor_data_list = devices_data.get_all_sensors()
         output_list = devices_data.get_all_outputs()
 
+        # making a list of output device providers to work with
         for output in output_list:
             print('Output name: {} Type: {} Connection: {}'.format(output.name, output.type, output.connection))
             if output.name == 'led':
@@ -42,8 +41,8 @@ class Main():
                 outputs[output.name] = out_provider
 
         print(outputs)
-        return
 
+        # making a list of sensor provides providers to work with
         for sensor_data in sensor_data_list:
             print('Sensor name: {}\nSensor type: {}\nConnection: {}\nActive: {}'.format(sensor_data.name, sensor_data.type, sensor_data.connection, sensor_data.active))
             if sensor_data.active:
@@ -56,12 +55,27 @@ class Main():
                 print("Sensor DEACTIVATED!")
             print('********************************')
 
+        # attempting to do a handshake with Roaming Node to retrieve the SLN-node
+        SLN_current = hadshake_handler.do_handshake()
+
+        # if handshake returns best SLN, go to ONLINE mode
+        if not SLN_current == 0:
+            self.mode_online = True
+            print("Working in ONLINE-mode")
+            # if Green LED is initialised, turn it on
+            if leds['green'] is not None:
+                leds['green'].on()
+        else:
+            print("Working in OFFLINE-mode")
+            # if Blue LED is initialised, turn it on
+            if leds['blue'] is not None:
+                leds['blue'].on()
+
+
         while True:
-            leds['green'].on()
             leds['red'].on()
             for sensor in sensors:
                 print("{}({}): {}".format(sensor.name, sensor.type, sensor.get_data()))
-            leds['red'].off()
             leds['green'].off()
             print('******************')
             time.sleep(1);

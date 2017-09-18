@@ -100,6 +100,9 @@ class MQTTHandshakeHandler:
         else:
             sln_list = sln_db.get_sln_list()
 
+            sln_db.close()
+            self.delete_sln_db()
+
             # finding fasted SLN
             if not len(sln_list) == 0:
                 print("List of online SLNs: ")
@@ -116,15 +119,13 @@ class MQTTHandshakeHandler:
 
             best_sln = pinger.get_fastest(sites)
 
+
+
             if(not best_sln == 0):
                 print("Best server: ", best_sln)
             else:
                 print("No accessible SLNs discovered!")
-
-        if self.FLAG_DB_CREATED:
-            sln_db.close()
-            self.delete_sln_db()
-
+                return 0
         return best_sln
 
 # sub = MQTTHandshakeHandler()
