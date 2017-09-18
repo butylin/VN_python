@@ -43,8 +43,6 @@ def main():
     SLN_current = hadshake_handler.do_handshake()
 
 
-
-
     sensor_data_list = devices_data.get_all_sensors()
     output_list = devices_data.get_all_outputs()
 
