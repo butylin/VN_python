@@ -58,7 +58,7 @@ class MQTTPinger():
     #returns server with lowest connect_time as tuple (server, connect_time)
     def get_fastest(self, broker_list):
         latencys = self.ping_brokers(broker_list)
-        if(not len(latencys == 0)):
+        if(not len(latencys) == 0):
             print(latencys)
             fastest = min(latencys, key=latencys.get)
             return fastest, latencys[fastest]
