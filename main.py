@@ -60,7 +60,7 @@ class Main():
         SLN_current = hadshake_handler.do_handshake()
 
         # if handshake returns best SLN, go to ONLINE mode
-        if not SLN_current == 0:
+        if not SLN_current == 0 or 1 or 2:
             self.mode_online = True
             print("Working in ONLINE-mode")
             # if Green LED is initialised, turn it on
