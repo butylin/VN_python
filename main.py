@@ -11,7 +11,7 @@ from MQTTHandshakeHandler import MQTTHandshakeHandler
 # sensorData.add_sensor_reading(datetime.datetime.now(), 'test', '567')
 
 class Main():
-    def __init__(self, db_sensor_readings: SensorReadingsData):
+    def __init__(self, db_sensor_readings):
         self.db_sensor_readings = db_sensor_readings
         self.mode_online = False
 
