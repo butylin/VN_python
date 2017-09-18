@@ -15,7 +15,7 @@ class Main():
         self.db_sensor_readings = db_sensor_readings
         self.mode_online = False
 
-    def main(self):
+    def start(self):
         devices_data = DevicesData()
         sensors_data = self.db_sensor_readings()
         hadshake_handler = MQTTHandshakeHandler()
@@ -102,8 +102,8 @@ class Main():
         SLN_current = None
 
 
-    # add_to_db()
-    main()
+main = Main(SensorReadingsData())
+main.start()
 
 
 
