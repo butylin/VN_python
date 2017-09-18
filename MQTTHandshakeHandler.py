@@ -38,6 +38,7 @@ class MQTTHandshakeHandler:
         print("Recieved message from {}\nMessage content: {}".format(msg.topic, str(msg.payload)))
         if self.make_db_file(msg.payload):
             self.FLAG_DB_CREATED = True
+        client.disconnect()
 
     # creates DB-file from MQTT message bytes
     def make_db_file(self, content):
@@ -69,7 +70,7 @@ class MQTTHandshakeHandler:
             client.on_message = self.on_message
             try:
                 #connects to a Roaming Nodef
-                client.connect_async(MQTT_ROAMING_SERVER, MQTT_PORT, MQTT_ALIVE)
+                client.connect(MQTT_ROAMING_SERVER, MQTT_PORT, MQTT_ALIVE)
                 client.loop_start()
             except Exception as e:
                 # problem connecting with roaming node. returning '0'
