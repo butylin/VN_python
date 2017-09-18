@@ -60,25 +60,25 @@ class Main():
         SLN_current = hadshake_handler.do_handshake()
 
         # if handshake returns best SLN, go to ONLINE mode
-        if not SLN_current == 0 or 1 or 2:
+        if SLN_current == 0 or SLN_current == 1 or SLN_current == 2:
+            print("Working in OFFLINE-mode")
+            # if Blue LED is initialised, turn it on
+            if leds['blue'] is not None:
+                leds['blue'].on()
+        else:
             self.mode_online = True
             print("Working in ONLINE-mode")
             # if Green LED is initialised, turn it on
             if leds['green'] is not None:
                 leds['green'].on()
-        else:
-            print("Working in OFFLINE-mode")
-            # if Blue LED is initialised, turn it on
-            if leds['blue'] is not None:
-                leds['blue'].on()
 
 
         while True:
             leds['red'].on()
             for sensor in sensors:
                 print("{}({}): {}".format(sensor.name, sensor.type, sensor.get_data()))
-            leds['green'].off()
             print('******************')
+            leds['red'].off()
             time.sleep(1);
 
     def add_to_db(self):
