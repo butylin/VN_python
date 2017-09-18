@@ -11,13 +11,14 @@ from MQTTHandshakeHandler import MQTTHandshakeHandler
 # sensorData.add_sensor_reading(datetime.datetime.now(), 'test', '567')
 
 class Main():
-    def __init__(self, db_sensor_readings):
+    def __init__(self, db_sensor_readings=None):
         self.db_sensor_readings = db_sensor_readings
         self.mode_online = False
 
     def start(self):
         devices_data = DevicesData()
-        sensors_data = self.db_sensor_readings()
+        sensors_data = SensorReadingsData()
+        # sensors_data = self.db_sensor_readings()
         hadshake_handler = MQTTHandshakeHandler()
 
         sensors = []
@@ -102,7 +103,8 @@ class Main():
         SLN_current = None
 
 
-main = Main(SensorReadingsData())
+# main = Main(SensorReadingsData())
+main = Main()
 main.start()
 
 
