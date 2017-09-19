@@ -73,7 +73,6 @@ class MQTTHandshakeHandler:
             try:
                 #connects to a Roaming Nodef
                 client.connect(MQTT_ROAMING_SERVER, MQTT_PORT, MQTT_ALIVE)
-                print("Waiting for list of SLNs from Roaming Node...", MQTT_TOPIC)
                 client.loop_start()
             except Exception as e:
                 # problem connecting with roaming node. returning '0'
@@ -90,13 +89,13 @@ class MQTTHandshakeHandler:
 
 
         #time to wait berfore get the result from roaming node
-        # timer = CONNECTION_TIMEOUT
+        timer = CONNECTION_TIMEOUT
         #wait for MQTT message for 'timer' seconds
-
-        # while (not self.FLAG_DB_CREATED) and (timer > 0):
-        #     print(timer)
-        #     timer -= 1
-        #     sleep(1)
+        print("Waiting for list of SLNs from Roaming Node...", MQTT_TOPIC)
+        while (not self.FLAG_DB_CREATED) and (timer > 0):
+            # print(timer)
+            timer -= 1
+            sleep(1)
 
         if not self.FLAG_DB_CREATED:
             print("Haven't received SLN-list from roaming server.")
