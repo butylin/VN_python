@@ -79,7 +79,7 @@ class Main():
                 print("{}({}): {}".format(sensor.name, sensor.type, sensor.get_data()))
             print('******************')
             leds['red'].off()
-            time.sleep(1);
+            time.sleep(1)
 
     def add_to_db(self):
         devices_data = DevicesData()

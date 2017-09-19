@@ -18,6 +18,7 @@ class MQTTPinger():
     # gets time difference between time before connect and after connecting to broker
     def on_connect(self, client, userdata, flags, rc):
         # print("Connected with result code "+str(rc))
+        # TODO: find other solution to get times
         start_time = self.result[userdata]
         end_time = datetime.datetime.now().microsecond
         time_diff = end_time - start_time
