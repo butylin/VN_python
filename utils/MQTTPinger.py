@@ -65,6 +65,11 @@ class MQTTPinger():
         else:
             return 0
 
+# Server: 74.208.85.110 Diff: -829327 Start: 850730 End: 21403
+# Server: test.mosquitto.org Diff: -789334 Start: 866885 End: 77551
+# Server: butylin-aws.ddns.net Diff: -789272 Start: 868873 End: 79601
+
+
 
 # list = ['test.mosquitto.org', 'butylin-aws.ddns.net', '74.208.85.110']
         # pinger = MQTTPinger()
