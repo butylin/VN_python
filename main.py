@@ -50,7 +50,7 @@ class Main():
         else:
             self.set_mode_online(self.leds)
 
-
+        print("*********************************")
         while True:
             values = {}
             for sensor in sensors:
@@ -58,10 +58,10 @@ class Main():
                 value = sensor.get_data()
                 values[key] = value
                 print("{}({}): {}".format(sensor.name, sensor.type, sensor.get_data()))
-
+            print("*********************************")
             json_str = json.dumps(values)
             self.save_sensor_readings(values)
-            print(values, " added")
+            time.sleep(1)
 
 
 
