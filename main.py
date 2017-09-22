@@ -106,7 +106,7 @@ class Main():
                 leds['green'].on()
             if leds.__contains__('blue'):
                 leds['blue'].off()
-        print("Working in ONLINE-mode")
+        print("Working in ON-LINE-mode")
 
     def set_mode_offline(self, leds):
         self.mode_online = False
