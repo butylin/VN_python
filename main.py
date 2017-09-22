@@ -48,7 +48,7 @@ class Main():
         if SLN_current == 0 or SLN_current == 1 or SLN_current == 2:
             self.set_mode_offline(self.leds)
         else:
-            self.set_mode_offline(self.leds)
+            self.set_mode_online(self.leds)
 
 
         while True:
@@ -101,18 +101,20 @@ class Main():
 
     def set_mode_online(self, leds):
         self.mode_online = True
-        if leds['green'] is not None:
-            leds['green'].on()
-        if leds['blue'] is not None:
-            leds['blue'].off()
+        if len(leds) > 0:
+            if leds.__contains__('green'):
+                leds['green'].on()
+            if leds.__contains__('blue'):
+                leds['blue'].off()
         print("Working in ONLINE-mode")
 
     def set_mode_offline(self, leds):
         self.mode_online = False
-        if leds['blue'] is not None:
-            leds['blue'].on()
-        if leds['green'] is not None:
-            leds['green'].off()
+        if len(leds) > 0:
+            if leds.__contains__('blue'):
+                leds['blue'].on()
+            if leds.__contains__('green'):
+                leds['green'].off()
         print("Working in OFFLINE-mode")
 
     def get_mode_online(self):
