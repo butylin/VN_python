@@ -124,7 +124,7 @@ class Main():
     def save_sensor_readings(self, values):
         if self.sensor_readings_db_created != datetime.datetime.now().strftime('%d-%m-%y'):
             self.sensors_data = SensorReadingsData()
-        time_stamp = datetime.now().strftime('%d-%m-%y %H:%M:%S')
+        time_stamp = datetime.datetime.now().strftime('%d-%m-%y %H:%M:%S')
         self.sensors_data.add_sensor_reading(time_stamp, self.VID, values)
 
 
