@@ -61,6 +61,7 @@ class Main():
 
             json_str = json.dumps(values)
             self.save_sensor_readings(values)
+            print(values, " added")
 
 
 
