@@ -20,7 +20,7 @@ class Main():
         self.leds = {}
         self.VID = VID
         self.devices_data = DevicesData()
-        self.sensor_readings_db_created = date_stamp = datetime.now().strftime('%d-%m-%y')
+        self.sensor_readings_db_created = date_stamp = datetime.datetime.now().strftime('%d-%m-%y')
         self.sensors_data = SensorReadingsData()
 
         # sensors_data = self.db_sensor_readings()
@@ -119,7 +119,7 @@ class Main():
 
     # saving sensor readings to DB. Checking if date is the same as when DB was initialized, otherwise re-initializes DB
     def save_sensor_readings(self, values):
-        if self.sensor_readings_db_created != datetime.now().strftime('%d-%m-%y'):
+        if self.sensor_readings_db_created != datetime.datetime.now().strftime('%d-%m-%y'):
             self.sensors_data = SensorReadingsData()
         time_stamp = datetime.now().strftime('%d-%m-%y %H:%M:%S')
         self.sensors_data.add_sensor_reading(time_stamp, self.VID, values)
