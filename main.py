@@ -84,7 +84,7 @@ class Main():
 
     def outputs_init(self, output_list):
         # making a list of output device providers to work with
-        outputs = []
+        outputs = {}
         for output in output_list:
             print('Output name: {} Type: {} Connection: {}'.format(output.name, output.type, output.connection))
             if output.name == 'led':
