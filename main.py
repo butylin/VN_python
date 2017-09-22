@@ -54,7 +54,7 @@ class Main():
         while True:
             values = {}
             for sensor in sensors:
-                key = sensor.name + "::" + sensor.type
+                key = str(sensor.name + "::" + sensor.type)
                 value = sensor.get_data()
                 values[key] = value
                 print("{}({}): {}".format(sensor.name, sensor.type, sensor.get_data()))
