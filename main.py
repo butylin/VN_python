@@ -62,7 +62,8 @@ class Main():
         # getting data from sensors
         print("*********************************")
         while True:
-            values, values_cr = {}
+            values = {}
+            values_cr = {}
             for sensor in sensors:
                 key_n = str(sensor.name)
                 key_t = str(sensor.type)
