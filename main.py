@@ -7,6 +7,14 @@ from DBSensorReadingsProvider import SensorReadingsData
 from MQTTHandshakeHandler import MQTTHandshakeHandler
 
 VID = '77'
+THRESHOLDS = {
+    'temperature':29,
+    'pressure':60,
+    'humidity':100
+              }
+TR_TEMP = 29;
+TR_PRESSURE = 60;
+TR_HUMIDITY = 100;
 
 # sensorData = SensorReadingsData()
 #
@@ -50,19 +58,35 @@ class Main():
         else:
             self.set_mode_online(self.leds)
 
+        # main loop
+        # getting data from sensors
         print("*********************************")
         while True:
-            values = {}
+            values, values_cr = {}
             for sensor in sensors:
-                key = str(sensor.name + "::" + sensor.type)
+                key_n = str(sensor.name)
+                key_t = str(sensor.type)
+                key = (key_n + "::" + key_t)
                 value = sensor.get_data()
+
+                if(self.is_critical(key_n, value)):
+                    self.led_on('red')
+                    values_cr[key] = value
+
                 values[key] = value
                 print("{}({}): {}".format(sensor.name, sensor.type, sensor.get_data()))
             print("*********************************")
+
             json_str = json.dumps(values)
             self.save_sensor_readings(values)
             time.sleep(1)
+            self.led_off('red')
 
+    def is_critical(self, key_n, value):
+       if(value >= THRESHOLDS[key_n]):
+           return True
+       else:
+           return False
 
 
     def sensors_init(self, sensor_data_list):
@@ -101,20 +125,14 @@ class Main():
 
     def set_mode_online(self, leds):
         self.mode_online = True
-        if len(leds) > 0:
-            if leds.__contains__('green'):
-                leds['green'].on()
-            if leds.__contains__('blue'):
-                leds['blue'].off()
+        self.led_on('green')
+        self.led_off('blue')
         print("Working in ON-LINE-mode")
 
     def set_mode_offline(self, leds):
         self.mode_online = False
-        if len(leds) > 0:
-            if leds.__contains__('blue'):
-                leds['blue'].on()
-            if leds.__contains__('green'):
-                leds['green'].off()
+        self.led_on('blue')
+        self.led_off('green')
         print("Working in OFFLINE-mode")
 
     def get_mode_online(self):
@@ -126,6 +144,19 @@ class Main():
             self.sensors_data = SensorReadingsData()
         time_stamp = datetime.datetime.now().strftime('%d-%m-%y %H:%M:%S')
         self.sensors_data.add_sensor_reading(time_stamp, self.VID, values)
+
+    def led_on(self, color):
+        leds = self.leds
+        if len(leds) > 0:
+            if leds.__contains__(color):
+                leds[color].on()
+
+
+    def led_off(self, color):
+        leds = self.leds
+        if len(leds) > 0:
+            if leds.__contains__(color):
+                leds[color].on()
 
 
     def add_to_db(self):
