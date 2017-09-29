@@ -157,7 +157,7 @@ class Main():
         leds = self.leds
         if len(leds) > 0:
             if leds.__contains__(color):
-                leds[color].on()
+                leds[color].off()
 
 
     def add_to_db(self):
