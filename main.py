@@ -9,8 +9,8 @@ from MQTTHandshakeHandler import MQTTHandshakeHandler
 VID = '77'
 THRESHOLDS = {
     'temperature': 29,
-    'pressure': 60,
-    'humidity': 1000
+    'pressure': 1000,
+    'humidity': 60
               }
 
 # sensorData = SensorReadingsData()
