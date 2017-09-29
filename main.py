@@ -14,7 +14,7 @@ THRESHOLDS = {
               }
 TR_TEMP = 29;
 TR_PRESSURE = 60;
-TR_HUMIDITY = 100;
+TR_HUMIDITY = 1000;
 
 # sensorData = SensorReadingsData()
 #
