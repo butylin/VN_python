@@ -8,9 +8,9 @@ from MQTTHandshakeHandler import MQTTHandshakeHandler
 
 VID = '77'
 THRESHOLDS = {
-    'temperature':29,
-    'pressure':60,
-    'humidity':100
+    'temperature': 29,
+    'pressure': 60,
+    'humidity': 100
               }
 TR_TEMP = 29;
 TR_PRESSURE = 60;
@@ -70,7 +70,7 @@ class Main():
                 key = (key_n + "::" + key_t)
                 value = sensor.get_data()
 
-                if(self.is_critical(key_t, value)):
+                if self.is_critical(key_t, value):
                     self.led_on('red')
                     values_cr[key] = value
 
@@ -82,6 +82,7 @@ class Main():
             self.save_sensor_readings(values)
             time.sleep(1)
             self.led_off('red')
+            print("CRIT!: ", values_cr)
 
     def is_critical(self, key_t, value):
        if THRESHOLDS.__contains__(key_t) and value >= THRESHOLDS[key_t]:
