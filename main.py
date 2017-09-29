@@ -70,7 +70,7 @@ class Main():
                 key = (key_n + "::" + key_t)
                 value = sensor.get_data()
 
-                if(self.is_critical(key_n, value)):
+                if(self.is_critical(key_t, value)):
                     self.led_on('red')
                     values_cr[key] = value
 
@@ -83,8 +83,8 @@ class Main():
             time.sleep(1)
             self.led_off('red')
 
-    def is_critical(self, key_n, value):
-       if(value >= THRESHOLDS[key_n]):
+    def is_critical(self, key_t, value):
+       if THRESHOLDS.__contains__(key_t) and value >= THRESHOLDS[key_t]:
            return True
        else:
            return False
