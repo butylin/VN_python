@@ -10,11 +10,8 @@ VID = '77'
 THRESHOLDS = {
     'temperature': 29,
     'pressure': 60,
-    'humidity': 100
+    'humidity': 1000
               }
-TR_TEMP = 29;
-TR_PRESSURE = 60;
-TR_HUMIDITY = 1000;
 
 # sensorData = SensorReadingsData()
 #
