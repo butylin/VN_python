@@ -72,10 +72,8 @@ class Potentiometer():
 
         return adcout
 
-
-    @classmethod
-    def get_data(cls):
-        return cls.readadc(cls.potentiometer_adc, cls.SPICLK, cls.SPIMOSI, cls.SPIMISO, cls.SPICS)
+    def get_data(self):
+        return self.readadc(self.potentiometer_adc, self.SPICLK, self.SPIMOSI, self.SPIMISO, self.SPICS)
 
 
 while True:
