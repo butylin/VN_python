@@ -79,6 +79,6 @@ class Potentiometer():
 
 
 while True:
-    pot = Potentiometer()
+    pot = Potentiometer("pot", "pot_full","pot_type", )
     print(pot.get_data())
     time.sleep(0.5)
