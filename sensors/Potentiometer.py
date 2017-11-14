@@ -2,12 +2,10 @@
 
 # Written by Limor "Ladyada" Fried for Adafruit Industries, (c) 2015
 # This code is released into the public domain
-
+from sensors import Sensor
 import time
 import os
 import RPi.GPIO as GPIO
-from sensors import Sensor
-
 
 class Potentiometer(Sensor.Sensor):
 
