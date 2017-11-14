@@ -1,11 +1,10 @@
-# from sensors import Sensor
-import sensors
+from sensors import Sensor
 import time
 import os
 import RPi.GPIO as GPIO
 
 
-class Potentiometer():
+class Potentiometer(Sensor.Sensor):
     def __init__(self, name, full_name, type, connection=None):
         # super().__init__(name, full_name, type, connection)
         GPIO.setmode(GPIO.BCM)
@@ -72,9 +71,3 @@ class Potentiometer():
 
     def get_data(self):
         return self.readadc(self.potentiometer_adc, self.SPICLK, self.SPIMOSI, self.SPIMISO, self.SPICS)
-
-
-while True:
-    pot = Potentiometer("pot", "pot_full","pot_type", )
-    print(pot.get_data())
-    time.sleep(0.5)

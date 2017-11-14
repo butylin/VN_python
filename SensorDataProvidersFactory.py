@@ -1,7 +1,7 @@
 from outputs import LED_light
 from sensors import VirtualTemperatureSensor, VirtualPressureSensor, VirtualHumiditySensor, VirtualGpsSensor, \
                     Adafruit_BME280_temperature, Adafruit_BME280_humidity, Adafruit_BME280_pressure, \
-                    Adafruit_TCS34725_RGB
+                    Adafruit_TCS34725_RGB, Potentiometer
 
 
 class SensorDataProvidersFactory:
@@ -24,6 +24,10 @@ class SensorDataProvidersFactory:
                 return sensor
             else:
                 pass
+        if name == 'Potentiometer':
+            if type == 'angle':
+                sensor = Potentiometer.Potentiometer(name, name, type)
+                return sensor
         if name == 'Adafruit_BME280':
             if type == 'temperature':
                 sensor = Adafruit_BME280_temperature.Adafruit_BME280_temperature(name, name, type)
