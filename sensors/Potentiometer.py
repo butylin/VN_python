@@ -1,18 +1,15 @@
-#!/usr/bin/env python
-
-# Written by Limor "Ladyada" Fried for Adafruit Industries, (c) 2015
-# This code is released into the public domain
 # from sensors import Sensor
+import sensors
 import time
 import os
 import RPi.GPIO as GPIO
 
-class Potentiometer():
 
+class Potentiometer():
     def __init__(self, name, full_name, type, connection=None):
         # super().__init__(name, full_name, type, connection)
         GPIO.setmode(GPIO.BCM)
-        DEBUG = 1
+        self.DEBUG = 1
 
         # change these as desired - they're the pins connected from the
         # SPI port on the ADC to the Cobbler
@@ -34,6 +31,7 @@ class Potentiometer():
         last_read = 0       # this keeps track of the last potentiometer value
         tolerance = 5       # to keep from being jittery we'll only change
         # volume when the pot has moved more than 5 'counts'
+        print("Potentiometer created!")
 
 
     # read SPI data from MCP3008 chip, 8 possible adc's (0 thru 7)
