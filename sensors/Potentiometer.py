@@ -2,12 +2,12 @@
 
 # Written by Limor "Ladyada" Fried for Adafruit Industries, (c) 2015
 # This code is released into the public domain
-from sensors import Sensor
+# from sensors import Sensor
 import time
 import os
 import RPi.GPIO as GPIO
 
-class Potentiometer(Sensor.Sensor):
+class Potentiometer():
 
     def __init__(self, name, full_name, type, connection=None):
         # super().__init__(name, full_name, type, connection)
