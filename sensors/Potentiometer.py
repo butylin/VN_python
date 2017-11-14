@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 
 class Potentiometer(Sensor.Sensor):
     def __init__(self, name, full_name, type, connection=None):
-        # super().__init__(name, full_name, type, connection)
+        super().__init__(name, full_name, type, connection)
         GPIO.setmode(GPIO.BCM)
         self.DEBUG = 1
 
