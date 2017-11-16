@@ -82,7 +82,7 @@ ax03.legend([p031,p032], [p031.get_label(),p032.get_label()])
 xmin = 0.0
 xmax = 5.0
 x = 0.0
-sensor = SensorDataProvidersFactory.get_data_provider('virtual', 'gps')
+sensor = SensorDataProvidersFactory.get_data_provider('Potentiometer', 'angle')
 
 
 def updateData(self):
