@@ -1,15 +1,15 @@
-from sensors import Sensor
+from sensor_adapters import Sensor
 import time
 import os
 import RPi.GPIO as GPIO
 
 
 class Potentiometer(Sensor.Sensor):
-    def __init__(self, name, full_name, type, connection=None):
+    def __init__(self, name, full_name, sensor_type, connection=None):
         # super().__init__(name, full_name, type, connection)
         self.name = name
         self.full_name = full_name
-        self.type = type
+        self.type = sensor_type
         # self.connection = connection
         GPIO.setmode(GPIO.BCM)
         self.DEBUG = 1

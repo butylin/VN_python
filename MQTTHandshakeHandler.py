@@ -4,17 +4,17 @@ from DBSLNListProvider import SLNListData
 from time import sleep
 import os
 import subprocess
-from utils import Pinger
-from utils import MQTTPinger
+from utils import Pinger, MQTTPinger, VN_Config, VN_Logger
 
-MQTT_ROAMING_SERVER = "test.mosquitto.org"
-MQTT_PORT = 1883
-MQTT_ALIVE = 60
-MQTT_VID = '77'
-MQTT_TOPIC = "/control/roaming"
-DB_FILE_ROAMING = "db/roaming.db"
+config = VN_Config.VN_Config.getInstance().getConfig()
+MQTT_ROAMING_SERVER = config['SETTINGS']['ROOT_SERVER']
+MQTT_PORT = config['SETTINGS']['MQTT_PORT']
+MQTT_ALIVE = config['SETTINGS']['MQTT_ALIVE']
+MQTT_VID = config['SETTINGS']['VID']
+MQTT_TOPIC = config['SETTINGS']['MQTT_ROAMING_TOPIC']
+DB_FILE_ROAMING = config['DB_FILES']['DB_ROAMING']
 # FLAG_DB_CREATED = False
-CONNECTION_TIMEOUT = 10
+CONNECTION_TIMEOUT = config['SETTINGS']['MQTT_CONNECTION_TIMEOUT']
 
 # returns 0 if failed to connect to Roaming Server
 # returns 1 if doesn't receive reply from Roaming Server within CONNECTION_TIMEOUT

@@ -1,5 +1,5 @@
-from sensors import Sensor
-from VirtualSensor import *
+from sensor_adapters import Sensor
+from sensor_libs.VirtualSensor import *
 
 class VirtualHumiditySensor(Sensor.Sensor):
 

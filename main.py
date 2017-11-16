@@ -5,8 +5,11 @@ from SensorDataProvidersFactory import *
 from DBDevicesProvider import DevicesData
 from DBSensorReadingsProvider import SensorReadingsData
 from MQTTHandshakeHandler import MQTTHandshakeHandler
+from utils.VN_Config import VN_Config
+from utils.VN_Logger import VNLogger
 
-VID = '77'
+config = VN_Config.getInstance().getConfig()
+VID = config['SETTINGS']['VIN']
 THRESHOLDS = {
     'temperature': 29,
     'pressure': 1000,
@@ -25,8 +28,10 @@ class Main():
         self.leds = {}
         self.VID = VID
         self.devices_data = DevicesData()
-        self.sensor_readings_db_created = date_stamp = datetime.datetime.now().strftime('%d-%m-%y')
         self.sensors_data = SensorReadingsData()
+        self.sensor_readings_db_created = date_stamp = datetime.datetime.now().strftime('%d-%m-%y')
+
+        mylogger = VNLogger.getInstance().getLogger()
 
         # sensors_data = self.db_sensor_readings()
 
@@ -101,6 +106,7 @@ class Main():
 
             else:
                 print("Sensor DEACTIVATED!")
+
             print('********************************')
 
         return sensors

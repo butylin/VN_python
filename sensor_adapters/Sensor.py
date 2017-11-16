@@ -1,12 +1,13 @@
 import SensorDataProvidersFactory
 import DBSensorReadingsProvider
 
+# Sensor interface
 class Sensor:
 
-    def __init__(self, name, full_name, type, connection = None):
+    def __init__(self, name, full_name, sensor_type, connection = None):
         self.name = name
         self.full_name = full_name
-        self.type = type
+        self.type = sensor_type
         self.connection = connection
 
     @classmethod
@@ -20,5 +21,3 @@ class Sensor:
     #     db_engine = DBSensorReadingsProvider()
     #     value = self.get_data()
     #     db_engine.add_sensor_reading(date, sensorName = self.name, value)
-
-

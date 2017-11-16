@@ -7,7 +7,6 @@ from matplotlib.pylab import *
 from mpl_toolkits.axes_grid1 import host_subplot
 import matplotlib.animation as animation
 import random
-import random
 from SensorDataProvidersFactory import *
 
 
@@ -83,7 +82,7 @@ ax03.legend([p031,p032], [p031.get_label(),p032.get_label()])
 xmin = 0.0
 xmax = 5.0
 x = 0.0
-sensor = SensorDataProvidersFactory.get_data_provider('Potentiometer', 'angle')
+sensor = SensorDataProvidersFactory.get_data_provider('virtual', 'gps')
 
 
 def updateData(self):

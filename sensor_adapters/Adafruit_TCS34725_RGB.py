@@ -1,4 +1,4 @@
-from sensors import Sensor
+from sensor_adapters import Sensor
 import Adafruit_TCS34725
 
 
