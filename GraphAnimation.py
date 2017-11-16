@@ -32,7 +32,7 @@ ax01.set_title('Position vs Time')
 # ax03.set_title('Position and Velocity vs Time')
 
 # set y-limits
-ax01.set_ylim(0,2)
+ax01.set_ylim(0,1000)
 # ax02.set_ylim(-6,6)
 # ax03.set_ylim(-0,5)
 # ax04.set_ylim(-10,10)
