@@ -46,7 +46,7 @@ class SensorDataProvidersFactory:
                 return sensor
             else:
                 pass
-        # OUTPUTS
+        OUTPUTS
         if name == 'led':
             output = LED_light.LED_light(name, name, type, connection)
             return output

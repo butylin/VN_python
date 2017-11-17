@@ -1,10 +1,11 @@
-import SensorDataProvidersFactory
-import DBSensorReadingsProvider
+# import SensorDataProvidersFactory
+# import DBSensorReadingsProvider
 
 # Sensor interface
 class Sensor:
 
-    def __init__(self, name, full_name, sensor_type, connection = None):
+    def __init__(self, name, full_name, sensor_type, connection = None, id=None):
+        self.id = id
         self.name = name
         self.full_name = full_name
         self.type = sensor_type

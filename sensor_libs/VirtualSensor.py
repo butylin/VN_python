@@ -18,13 +18,13 @@ class VirtualSensor:
 #returns value between 50-65
     def read_humidity(self):
         hum = self.HUM_AV
-        increase = random.randint(0,15)
+        increase = random.randint(0,30)
         return hum + increase
 
 #returns value between 100-130
     def read_pressure(self):
         press = self.PRESS_AV
-        increase = random.randint(0,30)
+        increase = random.randint(0,20)
         return press + increase
 
     #returns

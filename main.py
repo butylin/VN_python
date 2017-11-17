@@ -1,5 +1,8 @@
 import time, datetime
 import json
+import threading
+from EventDetector import EventDetector
+from EventPlotter import EventPlotter
 
 from SensorDataProvidersFactory import *
 from DBDevicesProvider import DevicesData
@@ -30,6 +33,7 @@ class Main():
         self.devices_data = DevicesData()
         self.sensors_data = SensorReadingsData()
         self.sensor_readings_db_created = date_stamp = datetime.datetime.now().strftime('%d-%m-%y')
+        self.event_observers = []
 
         mylogger = VNLogger.getInstance().getLogger()
 
@@ -41,6 +45,7 @@ class Main():
     def start(self):
 
         sensors = []
+        sensor_values = {}
         outputs = {}
         hadshake_handler = MQTTHandshakeHandler()
 
@@ -60,6 +65,18 @@ class Main():
         else:
             self.set_mode_online(self.leds)
 
+        # starting anomaly detection in the background thread
+
+        anomaly_detector_thread = threading.Thread(target=EventDetector.detect_anomaly())
+        anomaly_detector_thread.start()
+
+        event_plotter = EventPlotter(sensors)
+        event_plotter_thread = threading.Thread(target=event_plotter.plot)
+        event_plotter_thread.start()
+
+        self.event_observers.append(event_plotter)
+        self.event_observers.append(EventPlotter)
+
         # main loop
         # getting data from sensors
         print("*********************************")
@@ -69,7 +86,8 @@ class Main():
             for sensor in sensors:
                 key_n = str(sensor.name)
                 key_t = str(sensor.type)
-                key = (key_n + "::" + key_t)
+                # key = (key_n + "--" + key_t)
+                key = key_t
                 value = sensor.get_data()
 
                 if self.is_critical(key_t, value):
@@ -81,8 +99,12 @@ class Main():
             print("*********************************")
 
             json_str = json.dumps(values)
+            # notify observers about new velues
+            for observer in self.event_observers:
+                observer.update(values)
+
             self.save_sensor_readings(values)
-            time.sleep(1)
+            time.sleep(0.1)
             self.led_off('red')
             print("CRIT!: ", values_cr)
 

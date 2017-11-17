@@ -7,7 +7,7 @@ from matplotlib.pylab import *
 from mpl_toolkits.axes_grid1 import host_subplot
 import matplotlib.animation as animation
 import random
-from SensorDataProvidersFactory import *
+# from SensorDataProvidersFactory import *
 
 
 
@@ -18,7 +18,7 @@ matplotlib.rc('font', **font)
 # Setup figure and subplots
 f0 = figure(num = 0, figsize = (12, 8))#, dpi = 100)
 f0.suptitle("Oscillation decay", fontsize=12)
-ax01 = subplot2grid((2, 2), (0, 0))
+ax01 = subplot2grid((3, 2), (2, 0))
 
 # ax02 = subplot2grid((2, 2), (0, 1))
 # ax03 = subplot2grid((2, 2), (1, 0), colspan=2, rowspan=1)
@@ -32,7 +32,7 @@ ax01.set_title('Position vs Time')
 # ax03.set_title('Position and Velocity vs Time')
 
 # set y-limits
-ax01.set_ylim(0,1000)
+ax01.set_ylim(0,10)
 # ax02.set_ylim(-6,6)
 # ax03.set_ylim(-0,5)
 # ax04.set_ylim(-10,10)
@@ -84,7 +84,8 @@ ax01.legend([p011,p012], [p011.get_label(),p012.get_label()])
 xmin = 0.0
 xmax = 5.0
 x = 0.0
-sensor = SensorDataProvidersFactory.get_data_provider('Potentiometer', 'angle')
+
+# sensor = SensorDataProvidersFactory.get_data_provider('Potentiometer', 'angle')
 
 
 def updateData(self):
@@ -103,7 +104,7 @@ def updateData(self):
     yv1=append(yv1,tmpv1)
     yp2=append(yp2,0.5*tmpp1)
     yv2=append(yv2,0.5*tmpv1)
-    y = append(y, sensor.get_data())
+    y = append(y, random.randint(2,5))
     t=append(t,x)
     # print(t)
 
