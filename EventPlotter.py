@@ -47,7 +47,7 @@ class EventPlotter:
         for sensor in sensors:
             curr_subplot = subplot2grid((self.sensor_num, 1), (row, 0))
             curr_subplot.set_title(sensor.type + "::" + sensor.name)
-            curr_subplot.set_ylim(0, 200);
+            curr_subplot.set_ylim(0, 2000);
             curr_subplot.set_xlim(0,5.0)
             curr_subplot.grid(True)
             curr_subplot.set_xlabel("time")
@@ -78,8 +78,8 @@ class EventPlotter:
             # self.event_plot['pressure'].set_data(self.t, self.values_list.get('pressure'))
 
 
-            # if self.x >= self.xmax-1.00:
-            #     self.event_plot[key].axes.set_xlim(self.x - self.xmax+1.0, self.x+1.0)
+            if self.x >= self.xmax-1.00:
+                 self.event_plot[key].axes.set_xlim(self.x - self.xmax+1.0, self.x+1.0)
 
 
 
