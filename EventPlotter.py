@@ -79,7 +79,7 @@ class EventPlotter:
 
 
             if self.x >= self.xmax-1.00:
-                 self.event_plot[key].axes.set_xlim(self.x - self.xmax+1.0, self.x+1.0)
+                 self.event_plot[cur_key].axes.set_xlim(self.x - self.xmax+1.0, self.x+1.0)
 
 
 
