@@ -3,6 +3,7 @@ from mpl_toolkits.axes_grid1 import host_subplot
 import matplotlib.animation as animation
 import random
 from SensorDataProvidersFactoryTest import SensorDataProvidersFactoryTest
+from SensorDataProvidersFactory import SensorDataProvidersFactory
 import threading
 import time
 
@@ -107,12 +108,13 @@ class EventPlotter:
 sensors = []
 virt_temp = SensorDataProvidersFactoryTest.get_data_provider('virtual', 'temperature')
 virt_hum = SensorDataProvidersFactoryTest.get_data_provider('virtual', 'humidity')
-virt_press = SensorDataProvidersFactoryTest.get_data_provider('virtual', 'pressure')
+pot = SensorDataProvidersFactory.get_data_provider('Potentiometer', 'angle')
 
 
 sensors.append(virt_temp)
 sensors.append(virt_hum)
-sensors.append(virt_press)
+sensors.append(pot)
+
 
 
 plotter = EventPlotter(sensors)
